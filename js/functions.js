@@ -1,8 +1,7 @@
 //Функция для проверки длины строки
 
 function checkLength(inputString, maxLength) {
-  const result = (inputString.length <= maxLength) ? Boolean(true) : Boolean(false);
-  return result;
+  return (inputString.length <= maxLength);
 }
 
 checkLength('проверяемая строка', 20);
@@ -15,8 +14,7 @@ checkLength('проверяемая строка', 20);
 function isPalindrome(inputString) {
   const normalizedString = inputString.replaceAll(' ', '').toLowerCase();
   const reverseString = normalizedString.split('').reverse().join('');
-  const result = (normalizedString === reverseString) ? Boolean(true) : Boolean(false);
-  return result;
+  return (normalizedString === reverseString);
 }
 
 isPalindrome('топот');
@@ -29,7 +27,7 @@ isPalindrome('топот');
 
 function getNumber(inputString) {
   const trimedString = inputString.toString().replace(/[^0-9]/g, '');
-  const result = (trimedString === '') ? Number(NaN) : Number(trimedString);
+  const result = (trimedString === '') ? NaN : Number(trimedString);
   return result;
 }
 
