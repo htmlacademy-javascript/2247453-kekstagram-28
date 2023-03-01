@@ -92,5 +92,3 @@ const createPhoto = () => {
 };
 
 const createAllPhotos = Array.from({length: OBJECT_COUNT}, createPhoto);
-
-console.log(createAllPhotos);
