@@ -64,9 +64,6 @@ const generatePhotoId = createRandomIdFromRangeGenerator(1, OBJECT_COUNT);
 //Функция получения случайного ID комментария
 const generateCommentId = createRandomIdFromRangeGenerator(1, COMMENT_ID_LIMIT);
 
-//Функция получения случайного ID аватара
-const generateAvatarId = createRandomIdFromRangeGenerator(1, AVATAR_COUNT);
-
 //Функция создания фото с комментариями
 const createPhoto = () => {
   const randomPhotoId = generatePhotoId();
@@ -76,7 +73,7 @@ const createPhoto = () => {
     const randomCommentId = generateCommentId();
     return {
       id: randomCommentId, //Любое число. Идентификаторы не должны повторяться.
-      avatar: `img/avatar-${generateAvatarId()}.svg`, //Это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg.
+      avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`, //Это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg.
       message: getRandomArrayElement(COMMENTS), //Вам необходимо взять одно или два случайных предложения.
       name: getRandomArrayElement(NAMES) //Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.
     };
