@@ -62,6 +62,6 @@ const createPhoto = () => {
   };
 };
 
-const createAllPhotos = Array.from({length: OBJECT_COUNT}, createPhoto);
+const createAllPhotos = () => Array.from({length: OBJECT_COUNT}, createPhoto);
 
-export {createPhoto,createAllPhotos};
+export {createAllPhotos};
