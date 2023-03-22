@@ -5,15 +5,17 @@ const getDemoThumbnails = (thumbnails) => {
 
   const thumbnailsListFragment = document.createDocumentFragment();
 
-  thumbnails.forEach(({ url, comments, likes }) => {
+  thumbnails.forEach(({ id, url, description, likes, comments }) => {
     const thumbnailsElement = thumbnailsTemplate.cloneNode(true);
     thumbnailsElement.querySelector('.picture__img').src = url;
     thumbnailsElement.querySelector('.picture__comments').textContent = comments.length;
     thumbnailsElement.querySelector('.picture__likes').textContent = likes;
+    thumbnailsElement.querySelector('.picture__img').alt = description;
+    thumbnailsElement.dataset.thumbnailId = id;
     thumbnailsListFragment.appendChild(thumbnailsElement);
   });
 
   thumbnailsList.appendChild(thumbnailsListFragment);
 };
 
-export {getDemoThumbnails};
+export { getDemoThumbnails };
