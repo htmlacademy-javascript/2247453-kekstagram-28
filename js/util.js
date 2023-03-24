@@ -26,4 +26,10 @@ function createRandomIdFromRangeGenerator (min, max) {
 //Функция получения случайного элемента массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement};
+//Функция проверяет является ли нажатая клавиша ESC
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+//Функция проверяет является ли нажатая клавиша Enter
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey };

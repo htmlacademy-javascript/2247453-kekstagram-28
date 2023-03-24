@@ -1,4 +1,4 @@
-import {getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement} from './util.js';
+import { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement } from './util.js';
 
 //Описание возможных комментариев
 const COMMENTS = [
@@ -64,4 +64,4 @@ const createPhoto = () => {
 
 const createAllPhotos = () => Array.from({length: OBJECT_COUNT}, createPhoto);
 
-export {createAllPhotos};
+export { createAllPhotos };
