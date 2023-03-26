@@ -1,3 +1,5 @@
+const BATCH_OF_COMMENTS = 5;
+
 const socialComments = document.querySelector('.social__comments');
 const socialComment = document.querySelector('.social__comment');
 const bigImage = document.querySelector('.big-picture__img img');
@@ -7,8 +9,8 @@ const socialCaption = document.querySelector('.social__caption');
 const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const BATCH_OF_COMMENTS = 5;
 let commentShown = 0;
+let comments = 0;
 
 //Функция получения элемента массива по dataset ID
 function getCurrentItemByDatasetId(array, element) {
@@ -40,8 +42,6 @@ const showComments = (targetElement, photoComments) => {
 
   commentCount.textContent = `${commentShown} из ${photoComments.length} комментариев`;
 };
-
-let comments = [];
 
 const showLoadMore = () => {
   if (commentShown >= comments.length) {
