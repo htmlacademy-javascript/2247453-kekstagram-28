@@ -16,16 +16,16 @@ function getCurrentItemByDatasetId(array, element) {
 }
 
 //Функция отображения комментариев
-const showComments = (targetElement, comments) => {
+const showComments = (targetElement, photoComments) => {
   const commentsListFragment = document.createDocumentFragment();
   if (commentShown === 0) {
     targetElement.innerHTML = '';
   }
 
-  const commentsToShow = Math.min(BATCH_OF_COMMENTS, comments.length - commentShown);
+  const commentsToShow = Math.min(BATCH_OF_COMMENTS, photoComments.length - commentShown);
 
   for (let i = commentShown; i < commentShown + commentsToShow; i++) {
-    const comment = comments[i];
+    const comment = photoComments[i];
 
     const socialCommentElement = socialComment.cloneNode(true);
     socialCommentElement.querySelector('.social__picture').src = comment.avatar;
@@ -38,18 +38,23 @@ const showComments = (targetElement, comments) => {
 
   commentShown += commentsToShow;
 
-  commentCount.textContent = `${commentShown} из ${comments.length} комментариев`;
+  commentCount.textContent = `${commentShown} из ${photoComments.length} комментариев`;
+};
 
+let comments = [];
+
+const showLoadMore = () => {
   if (commentShown >= comments.length) {
     commentsLoader.classList.add('hidden');
   } else {
     commentsLoader.classList.remove('hidden');
-    commentsLoader.addEventListener('click', () => {
-      showComments(targetElement, comments);
-    });
   }
-
 };
+
+commentsLoader.addEventListener('click', () => {
+  showComments(socialComments, comments);
+  showLoadMore();
+});
 
 const showBigImage = (data, evt) => {
   commentShown = 0;
@@ -61,6 +66,10 @@ const showBigImage = (data, evt) => {
   allCommentCount.textContent = currentPicture.comments.length;
   socialCaption.textContent = currentPicture.description;
   showComments(socialComments, currentPicture.comments); //Отрисовка комментариев
+
+  comments = currentPicture.comments;
+
+  showLoadMore();
 };
 
 export { showBigImage };
