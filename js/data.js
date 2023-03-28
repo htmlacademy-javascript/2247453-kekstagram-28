@@ -30,7 +30,7 @@ const LIKE_LOW_LIMIT = 15;
 const LIKE_HIGH_LIMIT = 200;
 const COMMENT_ID_LIMIT = 999;
 const AVATAR_COUNT = 6;
-const COMMENTS_LIMIT = 5;
+const COMMENTS_LIMIT = 20;
 
 //Функция получения случайного ID фото
 const generatePhotoId = createRandomIdFromRangeGenerator(1, OBJECT_COUNT);

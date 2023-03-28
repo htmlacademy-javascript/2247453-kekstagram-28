@@ -4,8 +4,6 @@ import { showBigImage } from './big-picture-render.js';
 const thumbnailsContainer = document.querySelector('.pictures');
 const bigPicturePopup = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
-const commentCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
 
 //Функция закрытия всплывающего окна через ESC
 const onPopupEscKeydown = (evt) => {
@@ -23,9 +21,6 @@ const openBigPicture = (data, evt) => {
 
   document.addEventListener('keydown', onPopupEscKeydown);
 
-  commentCount.classList.add('hidden'); //Скрывает блок счётчика комментариев
-  commentsLoader.classList.add('hidden'); //Скрывает блок загрузки новых комментариев
-
   document.body.classList.add('modal-open'); //Блокировка скрола на body
 
   showBigImage(data, evt);
@@ -35,8 +30,7 @@ const openBigPicture = (data, evt) => {
 const closeBigPicture = () => {
   bigPicturePopup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
-  commentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
+
   document.body.classList.remove('modal-open');
 };
 
