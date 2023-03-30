@@ -1,11 +1,10 @@
 import { hasDuplicates } from './util.js';
 
+const VALID_TAG = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_LIMIT = 5;
 
 const pictureEditorForm = document.querySelector('.img-upload__form');
 const inputHashtags = document.querySelector('.text__hashtags');
-
-const hashtagRegCheck = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const pristine = new Pristine(pictureEditorForm, {
   classTo: 'img-upload__field-wrapper',
@@ -25,7 +24,7 @@ const inputHashtagsCheckLength = () => {
   return true;
 };
 
-const inputHashtagsCheckDup = () => {
+const inputHashtagsCheckDuplicates = () => {
   const currentHashtags = getCurrentHashtags();
   if (hasDuplicates(currentHashtags)) {
     return false;
@@ -33,10 +32,10 @@ const inputHashtagsCheckDup = () => {
   return true;
 };
 
-const inputHashtagsCheckReg = () => {
+const inputHashtagsCheckValid = () => {
   if (inputHashtags.value !== '') {
     const currentHashtags = getCurrentHashtags();
-    return currentHashtags.every((element) => hashtagRegCheck.test(element));
+    return currentHashtags.every((element) => VALID_TAG.test(element));
   }
   return true;
 };
@@ -49,13 +48,13 @@ pristine.addValidator(
 
 pristine.addValidator(
   inputHashtags,
-  inputHashtagsCheckDup,
+  inputHashtagsCheckDuplicates,
   'Хэштеги повторяются'
 );
 
 pristine.addValidator(
   inputHashtags,
-  inputHashtagsCheckReg,
+  inputHashtagsCheckValid,
   'Хэштег содержит ошибку'
 );
 
