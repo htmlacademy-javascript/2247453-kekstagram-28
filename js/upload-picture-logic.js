@@ -13,8 +13,12 @@ const pristine = new Pristine(pictureEditorForm, {
   errorTextClass: 'pristine-error-text',
 });
 
+function getCurrentHashtags() {
+  return inputHashtags.value.split(' ').filter((tag) => tag.trim().length);
+}
+
 const inputHashtagsCheckLength = () => {
-  const currentHashtags = inputHashtags.value.split(' ');
+  const currentHashtags = getCurrentHashtags();
   if (currentHashtags.length > HASHTAG_LIMIT) {
     return false;
   }
@@ -22,7 +26,7 @@ const inputHashtagsCheckLength = () => {
 };
 
 const inputHashtagsCheckDup = () => {
-  const currentHashtags = inputHashtags.value.split(' ');
+  const currentHashtags = getCurrentHashtags();
   if (hasDuplicates(currentHashtags)) {
     return false;
   }
@@ -31,7 +35,7 @@ const inputHashtagsCheckDup = () => {
 
 const inputHashtagsCheckReg = () => {
   if (inputHashtags.value !== '') {
-    const currentHashtags = inputHashtags.value.split(' ');
+    const currentHashtags = getCurrentHashtags();
     return currentHashtags.every((element) => hashtagRegCheck.test(element));
   }
   return true;
