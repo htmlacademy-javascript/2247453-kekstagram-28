@@ -32,4 +32,10 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 //Функция проверяет является ли нажатая клавиша Enter
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey };
+//Функция проверяет наличие повторов в массиве
+function hasDuplicates(arr) {
+  const lowerCaseArr = arr.map((item) => item.toLowerCase());
+  return new Set(lowerCaseArr).size !== lowerCaseArr.length;
+}
+
+export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey,hasDuplicates };

@@ -21,7 +21,7 @@ const openBigPicture = (data, evt) => {
 
   document.addEventListener('keydown', onPopupEscKeydown);
 
-  document.body.classList.add('modal-open'); //Блокировка скрола на body
+  document.body.classList.add('modal-open'); //Блокировка скролла на body
 
   showBigImage(data, evt);
 };
@@ -43,7 +43,7 @@ function addOpenPictureHandler (data) {
   });
 
   thumbnailsContainer.addEventListener('keydown', (evt) => {
-    if (evt.target.matches('.picture') && (isEnterKey(evt))) {
+    if (evt.target.matches('.picture') && isEnterKey(evt)) {
       openBigPicture(data, evt);
     }
   });
