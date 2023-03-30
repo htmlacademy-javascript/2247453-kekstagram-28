@@ -1408,3 +1408,9 @@ main {
 .hidden {
   display: none;
 }
+
+.pristine-error-text {
+  padding: 10px;
+  font-size: 1.3rem;
+  color: #faa500
+}

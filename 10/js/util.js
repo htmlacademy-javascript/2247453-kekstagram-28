@@ -34,7 +34,8 @@ const isEnterKey = (evt) => evt.key === 'Enter';
 
 //Функция проверяет наличие повторов в массиве
 function hasDuplicates(arr) {
-  return new Set(arr).size !== arr.length;
+  const lowerCaseArr = arr.map((item) => item.toLowerCase());
+  return new Set(lowerCaseArr).size !== lowerCaseArr.length;
 }
 
 export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey,hasDuplicates };

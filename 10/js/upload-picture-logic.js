@@ -1,63 +1,68 @@
 import { hasDuplicates } from './util.js';
 
+const VALID_TAG = /^#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_LIMIT = 5;
+
 const pictureEditorForm = document.querySelector('.img-upload__form');
 const inputHashtags = document.querySelector('.text__hashtags');
-const inputDescription = document.querySelector('.text__description');
 
-const hashtagRegCheck = /^#[a-zа-яё0-9]{1,19}$/i;
+const pristine = new Pristine(pictureEditorForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'pristine-error-text',
+});
 
-const pristine = new Pristine(pictureEditorForm);
+function getCurrentHashtags() {
+  return inputHashtags.value.split(' ').filter((tag) => tag.trim().length);
+}
 
-const inputHashtagsCheck = () => {
-  if (inputHashtags.value === '') {
-    // console.log('Строка тегов пустая');
-    return true;
-  }
-
-  if (inputHashtags.value.length > 100) {
-    // console.log('Строка тегов превышает 100 символов');
-    return false;
-  }
-
-  const CurrentHashtags = inputHashtags.value.split(' ');
-
-  if (CurrentHashtags.length > 5) {
-    // console.log('Больше 5 тегов');
-    return false;
-  }
-
-  if (hasDuplicates(CurrentHashtags)) {
-    // console.log('Повтор тегов');
-    return false;
-  }
-
-  for (let i = 0; i < CurrentHashtags.length; i++) {
-    const element = CurrentHashtags[i];
-    if (!hashtagRegCheck.test(element)) {
-      // console.log('Один из тегов не валиден');
-      return false;
-    }
-  }
-
-  // console.log('Строка тегов прошла проверки');
-  return true;
-};
-
-const inputDescriptionCheck = () => {
-  if (inputDescription.value.length > 140) {
-    // console.log('Описание превышает 140 символов');
+const inputHashtagsCheckLength = () => {
+  const currentHashtags = getCurrentHashtags();
+  if (currentHashtags.length > HASHTAG_LIMIT) {
     return false;
   }
   return true;
 };
+
+const inputHashtagsCheckDuplicates = () => {
+  const currentHashtags = getCurrentHashtags();
+  if (hasDuplicates(currentHashtags)) {
+    return false;
+  }
+  return true;
+};
+
+const inputHashtagsCheckValid = () => {
+  if (inputHashtags.value !== '') {
+    const currentHashtags = getCurrentHashtags();
+    return currentHashtags.every((element) => VALID_TAG.test(element));
+  }
+  return true;
+};
+
+pristine.addValidator(
+  inputHashtags,
+  inputHashtagsCheckLength,
+  'Максимум 5 хэштегов'
+);
+
+pristine.addValidator(
+  inputHashtags,
+  inputHashtagsCheckDuplicates,
+  'Хэштеги повторяются'
+);
+
+pristine.addValidator(
+  inputHashtags,
+  inputHashtagsCheckValid,
+  'Хэштег содержит ошибку'
+);
 
 pictureEditorForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   const isValid = pristine.validate();
-  const checkHashtags = inputHashtagsCheck();
-  const checkDescription = inputDescriptionCheck();
-  if (isValid && checkHashtags && checkDescription) {
+  if (isValid) {
     // console.log('Можно отправлять');
   } else {
     // console.log('Форма невалидна');

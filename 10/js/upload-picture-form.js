@@ -5,6 +5,7 @@ const pictureEditor = document.querySelector('.img-upload__overlay');
 const pictureEditorCloseButton = document.querySelector('.img-upload__cancel');
 const inputHashtags = document.querySelector('.text__hashtags');
 const inputDescription = document.querySelector('.text__description');
+const pictureEditorForm = document.querySelector('.img-upload__form');
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -35,6 +36,7 @@ const closePictureEditor = () => {
   document.body.classList.remove('modal-open');
   inputHashtags.removeEventListener('keydown', onInputKeydown);
   inputDescription.removeEventListener('keydown', onInputKeydown);
+  pictureEditorForm.reset();
   pictureLoader.value = '';
 };
 
