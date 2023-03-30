@@ -1,5 +1,7 @@
 import { hasDuplicates } from './util.js';
 
+const HASHTAG_LIMIT = 5;
+
 const pictureEditorForm = document.querySelector('.img-upload__form');
 const inputHashtags = document.querySelector('.text__hashtags');
 
@@ -12,16 +14,16 @@ const pristine = new Pristine(pictureEditorForm, {
 });
 
 const inputHashtagsCheckLength = () => {
-  const CurrentHashtags = inputHashtags.value.split(' ');
-  if (CurrentHashtags.length > 5) {
+  const currentHashtags = inputHashtags.value.split(' ');
+  if (currentHashtags.length > HASHTAG_LIMIT) {
     return false;
   }
   return true;
 };
 
 const inputHashtagsCheckDup = () => {
-  const CurrentHashtags = inputHashtags.value.split(' ');
-  if (hasDuplicates(CurrentHashtags)) {
+  const currentHashtags = inputHashtags.value.split(' ');
+  if (hasDuplicates(currentHashtags)) {
     return false;
   }
   return true;
@@ -29,13 +31,8 @@ const inputHashtagsCheckDup = () => {
 
 const inputHashtagsCheckReg = () => {
   if (inputHashtags.value !== '') {
-    const CurrentHashtags = inputHashtags.value.split(' ');
-    for (let i = 0; i < CurrentHashtags.length; i++) {
-      const element = CurrentHashtags[i];
-      if (!hashtagRegCheck.test(element)) {
-        return false;
-      }
-    }
+    const currentHashtags = inputHashtags.value.split(' ');
+    return currentHashtags.every((element) => hashtagRegCheck.test(element));
   }
   return true;
 };

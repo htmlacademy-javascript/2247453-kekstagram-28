@@ -41,9 +41,9 @@ const generateCommentId = createRandomIdFromRangeGenerator(1, COMMENT_ID_LIMIT);
 //Функция создания фото с комментариями
 const createPhoto = () => {
   const randomPhotoId = generatePhotoId();
-  const randomCommensCount = getRandomInteger(1, COMMENTS_LIMIT);
+  const randomCommentsCount = getRandomInteger(1, COMMENTS_LIMIT);
 
-  const comments = Array.from({length: randomCommensCount}, () => {
+  const comments = Array.from({length: randomCommentsCount}, () => {
     const randomCommentId = generateCommentId();
     return {
       id: randomCommentId, //Любое число. Идентификаторы не должны повторяться.
@@ -56,7 +56,7 @@ const createPhoto = () => {
   return {
     id: randomPhotoId, //Число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
     url: `photos/${randomPhotoId}.jpg`, //Строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
-    description: `Описание фотографии под номером ${randomPhotoId}`, //Cтрока — описание фотографии. Описание придумайте самостоятельно.
+    description: `Описание фотографии под номером ${randomPhotoId}`, //Строка — описание фотографии. Описание придумайте самостоятельно.
     likes: getRandomInteger(LIKE_LOW_LIMIT, LIKE_HIGH_LIMIT), //Число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
     comments //Массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии вы определяете на своё усмотрение. Все комментарии генерируются случайным образом.
   };
