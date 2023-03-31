@@ -9,13 +9,12 @@ const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    bigPicturePopup.classList.add('hidden');
-    document.body.classList.remove('modal-open');
+    closeBigPicture();
   }
 };
 
 //Открытие всплывающего окна
-const openBigPicture = (data, evt) => {
+function openBigPicture(data, evt) {
   evt.preventDefault();
   bigPicturePopup.classList.remove('hidden');
 
@@ -24,15 +23,15 @@ const openBigPicture = (data, evt) => {
   document.body.classList.add('modal-open'); //Блокировка скролла на body
 
   showBigImage(data, evt);
-};
+}
 
 //Закрытие всплывающего окна
-const closeBigPicture = () => {
+function closeBigPicture() {
   bigPicturePopup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
 
   document.body.classList.remove('modal-open');
-};
+}
 
 //Обработчики открытия всплывающего окна
 function addOpenPictureHandler (data) {

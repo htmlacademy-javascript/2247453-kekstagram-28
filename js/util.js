@@ -33,9 +33,9 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 const isEnterKey = (evt) => evt.key === 'Enter';
 
 //Функция проверяет наличие повторов в массиве
-function hasDuplicates(arr) {
+const hasDuplicates = (arr) => {
   const lowerCaseArr = arr.map((item) => item.toLowerCase());
   return new Set(lowerCaseArr).size !== lowerCaseArr.length;
-}
+};
 
 export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey,hasDuplicates };
