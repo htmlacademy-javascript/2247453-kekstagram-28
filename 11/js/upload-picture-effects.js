@@ -17,6 +17,49 @@ noUiSlider.create(sliderElement, {
   connect: 'lower'
 });
 
+const sliderSettings = {
+  chrome: {
+    name: 'grayscale',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    start: 1
+  },
+  sepia: {
+    name: 'sepia',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    start: 1
+  },
+  marvin: {
+    name: 'invert',
+    unit: '%',
+    min: 0,
+    max: 100,
+    step: 1,
+    start: 100
+  },
+  phobos: {
+    name: 'blur',
+    unit: 'px',
+    min: 0,
+    max: 3,
+    step: 0.1,
+    start: 3
+  },
+  heat: {
+    name: 'brightness',
+    unit: '',
+    min: 1,
+    max: 3,
+    step: 0.1,
+    start: 3
+  },
+};
+
 effectsList.addEventListener('change', (evt) => {
   const selectedEffect = evt.target.value;
 
@@ -31,70 +74,17 @@ effectsList.addEventListener('change', (evt) => {
     previewImg.className = `effects__preview--${selectedEffect}`;
   }
 
-  if(selectedEffect === 'chrome') {
-    currentEffectName = 'grayscale';
-    currentEffectUnit = '';
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        'min': 0,
-        'max': 1
-      },
-      step: 0.1,
-      start: 1
-    });
-  }
-
-  if(selectedEffect === 'sepia') {
-    currentEffectName = 'sepia';
-    currentEffectUnit = '';
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        'min': 0,
-        'max': 1
-      },
-      step: 0.1,
-      start: 1
-    });
-  }
-
-  if(selectedEffect === 'marvin') {
-    currentEffectName = 'invert';
-    currentEffectUnit = '%';
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        'min': 0,
-        'max': 100
-      },
-      step: 1,
-      start: 100
-    });
-  }
-
-  if(selectedEffect === 'phobos') {
-    currentEffectName = 'blur';
-    currentEffectUnit = 'px';
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        'min': 0,
-        'max': 3
-      },
-      step: 0.1,
-      start: 3
-    });
-  }
-
-  if(selectedEffect === 'heat') {
-    currentEffectName = 'brightness';
-    currentEffectUnit = '';
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        'min': 1,
-        'max': 3
-      },
-      step: 0.1,
-      start: 3
-    });
-  }
+  const currentSettings = sliderSettings[selectedEffect];
+  currentEffectName = currentSettings['name'];
+  currentEffectUnit = currentSettings['unit'];
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      'min': currentSettings['min'],
+      'max': currentSettings['max']
+    },
+    step: currentSettings['step'],
+    start: currentSettings['start']
+  });
 
 });
 
@@ -103,9 +93,6 @@ effectsList.addEventListener('change', (evt) => {
 sliderElement.noUiSlider.on('update', (...rest) => {
   effectLevel.value = sliderElement.noUiSlider.get();
   previewImg.style.filter = `${currentEffectName}(${effectLevel.value}${currentEffectUnit})`;
-  // console.log(currentEffectName);
-  // console.log(effectLevel.value);
-  // console.log(previewImg.style.filter);
 });
 
 const resetEffect = () => {
