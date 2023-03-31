@@ -12,24 +12,16 @@ const pristine = new Pristine(pictureEditorForm, {
   errorTextClass: 'pristine-error-text',
 });
 
-function getCurrentHashtags() {
-  return inputHashtags.value.split(' ').filter((tag) => tag.trim().length);
-}
+const getCurrentHashtags = () => inputHashtags.value.split(' ').filter((tag) => tag.trim().length);
 
 const inputHashtagsCheckLength = () => {
   const currentHashtags = getCurrentHashtags();
-  if (currentHashtags.length > HASHTAG_LIMIT) {
-    return false;
-  }
-  return true;
+  return currentHashtags.length <= HASHTAG_LIMIT;
 };
 
 const inputHashtagsCheckDuplicates = () => {
   const currentHashtags = getCurrentHashtags();
-  if (hasDuplicates(currentHashtags)) {
-    return false;
-  }
-  return true;
+  return !hasDuplicates(currentHashtags);
 };
 
 const inputHashtagsCheckValid = () => {
@@ -68,3 +60,7 @@ pictureEditorForm.addEventListener('submit', (evt) => {
     // console.log('Форма невалидна');
   }
 });
+
+const resetPristineErrors = () => pristine.reset();
+
+export { resetPristineErrors };

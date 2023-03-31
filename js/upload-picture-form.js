@@ -1,4 +1,7 @@
 import { isEscapeKey, isEnterKey } from './util.js';
+import { resetPristineErrors } from './upload-picture-logic.js';
+import { resetImgScale } from './upload-picture-scale.js';
+import { resetEffect } from './upload-picture-effects.js';
 
 const pictureLoader = document.querySelector('#upload-file');
 const pictureEditor = document.querySelector('.img-upload__overlay');
@@ -10,9 +13,7 @@ const pictureEditorForm = document.querySelector('.img-upload__form');
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    pictureEditor.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    pictureLoader.value = '';
+    closePictureEditor();
   }
 };
 
@@ -22,23 +23,26 @@ const onInputKeydown = (evt) => {
   }
 };
 
-const openPictureEditor = () => {
+function openPictureEditor() {
   pictureEditor.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscKeydown);
   document.body.classList.add('modal-open');
   inputHashtags.addEventListener('keydown', onInputKeydown);
   inputDescription.addEventListener('keydown', onInputKeydown);
-};
+}
 
-const closePictureEditor = () => {
+function closePictureEditor() {
   pictureEditor.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
   document.body.classList.remove('modal-open');
   inputHashtags.removeEventListener('keydown', onInputKeydown);
   inputDescription.removeEventListener('keydown', onInputKeydown);
   pictureEditorForm.reset();
+  resetPristineErrors();
+  resetImgScale();
+  resetEffect();
   pictureLoader.value = '';
-};
+}
 
 function addOpenPictureEditorHandler () {
   pictureLoader.addEventListener('change', () => {
