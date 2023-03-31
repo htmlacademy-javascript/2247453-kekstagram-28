@@ -1,11 +1,12 @@
+const DEFAULT_VALUE = 100;
+const SCALE_STEP = 25;
+
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const imgPreview = document.querySelector('.img-upload__preview img');
 
-const SCALE_STEP = 25;
-
-let scaleValue = 100;
+let scaleValue = DEFAULT_VALUE;
 
 scaleControlSmaller.addEventListener('click', () => {
   if (scaleValue > SCALE_STEP) {
@@ -25,6 +26,8 @@ scaleControlBigger.addEventListener('click', () => {
 
 const resetImgScale = () => {
   imgPreview.style.transform = '';
+  scaleValue = DEFAULT_VALUE;
+  scaleControlValue.value = `${scaleValue}%`;
 };
 
 export { resetImgScale };
