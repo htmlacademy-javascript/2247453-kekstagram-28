@@ -8,21 +8,24 @@ const imgPreview = document.querySelector('.img-upload__preview img');
 
 let scaleValue = DEFAULT_VALUE;
 
-scaleControlSmaller.addEventListener('click', () => {
-  if (scaleValue > SCALE_STEP) {
-    scaleValue -= SCALE_STEP;
-    scaleControlValue.value = `${scaleValue}%`;
-    imgPreview.style.transform = `scale(${scaleValue / 100})`;
-  }
-});
+const addImgScale = () => {
 
-scaleControlBigger.addEventListener('click', () => {
-  if (scaleValue < 100) {
-    scaleValue += SCALE_STEP;
-    scaleControlValue.value = `${scaleValue}%`;
-    imgPreview.style.transform = `scale(${scaleValue / 100})`;
-  }
-});
+  scaleControlSmaller.addEventListener('click', () => {
+    if (scaleValue > SCALE_STEP) {
+      scaleValue -= SCALE_STEP;
+      scaleControlValue.value = `${scaleValue}%`;
+      imgPreview.style.transform = `scale(${scaleValue / 100})`;
+    }
+  });
+
+  scaleControlBigger.addEventListener('click', () => {
+    if (scaleValue < 100) {
+      scaleValue += SCALE_STEP;
+      scaleControlValue.value = `${scaleValue}%`;
+      imgPreview.style.transform = `scale(${scaleValue / 100})`;
+    }
+  });
+};
 
 const resetImgScale = () => {
   imgPreview.style.transform = '';
@@ -30,4 +33,4 @@ const resetImgScale = () => {
   scaleControlValue.value = `${scaleValue}%`;
 };
 
-export { resetImgScale };
+export { addImgScale, resetImgScale };
