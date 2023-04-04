@@ -1,13 +1,13 @@
 import { getDemoThumbnails } from './thumbnails.js';
 import { addOpenPictureHandler } from './big-picture-popup.js';
 import { showAlert } from './util.js';
-import { showMessage } from './upload-picture-form.js';
+import { showMessage, closePictureEditor } from './upload-picture-form.js';
 
 const TARGET_URL = 'https://28.javascript.pages.academy/kekstagram';
 
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '333/',
+  SEND_DATA: '/',
 };
 
 const messageType = {
@@ -15,18 +15,20 @@ const messageType = {
   ERR: 'error',
 };
 
+const dataOnSuccess = (data) => {
+  getDemoThumbnails(data);
+  addOpenPictureHandler(data);
+};
+
 //Функция для получения данных
-const getData = () => fetch(`${TARGET_URL}${Route.GET_DATA}`)
+const getData = (OnSuccess) => fetch(`${TARGET_URL}${Route.GET_DATA}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error();
     }
     return response.json();
   })
-  .then((data) => {
-    getDemoThumbnails(data);
-    addOpenPictureHandler(data);
-  })
+  .then(OnSuccess)
   .catch(() => {
     showAlert('Не удалось загрузить данные. Попробуйте обновить страницу');
   });
@@ -42,6 +44,7 @@ const sendData = (body) => fetch(
     if (!response.ok) {
       throw new Error();
     } else {
+      closePictureEditor();
       showMessage(messageType.OK);
     }
   })
@@ -49,4 +52,4 @@ const sendData = (body) => fetch(
     showMessage(messageType.ERR);
   });
 
-export { getData, sendData };
+export { getData, sendData, dataOnSuccess };

@@ -29,14 +29,6 @@ const onInputKeydown = (evt) => {
   }
 };
 
-const noDataResetClose = () => {
-  pictureEditor.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  document.body.classList.remove('modal-open');
-  inputHashtags.removeEventListener('keydown', onInputKeydown);
-  inputDescription.removeEventListener('keydown', onInputKeydown);
-};
-
 function openPictureEditor() {
   pictureEditor.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscKeydown);
@@ -46,7 +38,11 @@ function openPictureEditor() {
 }
 
 function closePictureEditor() {
-  noDataResetClose();
+  pictureEditor.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.body.classList.remove('modal-open');
+  inputHashtags.removeEventListener('keydown', onInputKeydown);
+  inputDescription.removeEventListener('keydown', onInputKeydown);
   pictureEditorForm.reset();
   resetPristineErrors();
   resetImgScale();
@@ -87,30 +83,36 @@ const showMessage = (type) => {
   const closeButton = message.querySelector(`.${type}__button`);
   const messageInner = template.querySelector(`.${type}__inner`);
 
+  document.removeEventListener('keydown', onPopupEscKeydown);
 
   const onCloseButtonClick = () => {
-    message.remove();
-    closeButton.removeEventListener('click', onCloseButtonClick);
+    onClose();
   };
   closeButton.addEventListener('click', onCloseButtonClick);
 
   const onEscPress = (evt) => {
     if (evt.key === 'Escape') {
-      message.remove();
-      document.removeEventListener('keydown', onEscPress);
+      onClose();
     }
   };
   document.addEventListener('keydown', onEscPress);
 
   const onOutsideClick = (evt) => {
     if (!messageInner.contains(evt.target)) {
-      message.remove();
-      document.removeEventListener('click', onOutsideClick);
+      onClose();
     }
   };
   document.addEventListener('click', onOutsideClick);
 
+  function onClose() {
+    message.remove();
+    closeButton.removeEventListener('click', onCloseButtonClick);
+    document.removeEventListener('keydown', onEscPress);
+    document.removeEventListener('click', onOutsideClick);
+    document.addEventListener('keydown', onPopupEscKeydown);
+  }
+
   document.body.appendChild(message);
 };
 
-export { addOpenPictureEditorHandler, addClosePictureEditorHandler, closePictureEditor, blockSubmitButton, unblockSubmitButton, showMessage, noDataResetClose };
+export { addOpenPictureEditorHandler, addClosePictureEditorHandler, closePictureEditor, blockSubmitButton, unblockSubmitButton, showMessage };

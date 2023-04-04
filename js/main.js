@@ -1,13 +1,13 @@
-import {getData} from './api.js';
+import {getData, dataOnSuccess} from './api.js';
 import { addClosePictureHandler } from './big-picture-popup.js';
-import { addOpenPictureEditorHandler, addClosePictureEditorHandler, closePictureEditor, noDataResetClose } from './upload-picture-form.js';
+import { addOpenPictureEditorHandler, addClosePictureEditorHandler } from './upload-picture-form.js';
 import { setUserFormSubmit } from './upload-picture-logic.js';
 import { addImgScale } from './upload-picture-scale.js';
 import './upload-picture-effects.js';
 
-getData();
+getData(dataOnSuccess);
 addClosePictureHandler();
 addOpenPictureEditorHandler();
 addClosePictureEditorHandler();
-setUserFormSubmit(closePictureEditor,noDataResetClose);
+setUserFormSubmit();
 addImgScale();
