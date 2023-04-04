@@ -52,7 +52,7 @@ pristine.addValidator(
   'Хэштег содержит ошибку'
 );
 
-const setUserFormSubmit = (onSuccess, onFailure) => {
+const setUserFormSubmit = () => {
   pictureEditorForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -60,10 +60,8 @@ const setUserFormSubmit = (onSuccess, onFailure) => {
     if (isValid) {
       blockSubmitButton();
       sendData(new FormData(evt.target))
-        .then(onSuccess)
         .catch((err) => {
           showAlert(err.message);
-          onFailure();
         })
         .finally(unblockSubmitButton);
     }
