@@ -1,4 +1,6 @@
-import { hasDuplicates } from './util.js';
+import { hasDuplicates, showAlert } from './util.js';
+import { sendData } from './api.js';
+import { blockSubmitButton, unblockSubmitButton } from './upload-picture-form.js';
 
 const VALID_TAG = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_LIMIT = 5;
@@ -50,17 +52,22 @@ pristine.addValidator(
   'Хэштег содержит ошибку'
 );
 
-pictureEditorForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const setUserFormSubmit = () => {
+  pictureEditorForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  const isValid = pristine.validate();
-  if (isValid) {
-    // console.log('Можно отправлять');
-  } else {
-    // console.log('Форма невалидна');
-  }
-});
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .catch((err) => {
+          showAlert(err.message);
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
 
 const resetPristineErrors = () => pristine.reset();
 
-export { resetPristineErrors };
+export { resetPristineErrors,setUserFormSubmit };
