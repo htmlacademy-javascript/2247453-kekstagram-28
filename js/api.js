@@ -1,7 +1,8 @@
-import { getDemoThumbnails } from './thumbnails.js';
+import { renderThumbnails } from './thumbnails.js';
 import { addOpenPictureHandler } from './big-picture-popup.js';
 import { showAlert } from './util.js';
 import { showMessage, closePictureEditor } from './upload-picture-form.js';
+import { getFiltersClassChange,getFiltersRender } from './thumbnails-filter.js';
 
 const TARGET_URL = 'https://28.javascript.pages.academy/kekstagram';
 
@@ -16,19 +17,24 @@ const messageType = {
 };
 
 const dataOnSuccess = (data) => {
-  getDemoThumbnails(data);
+  renderThumbnails(data);
   addOpenPictureHandler(data);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  getFiltersClassChange();
+  getFiltersRender(data);
 };
 
 //Функция для получения данных
-const getData = (OnSuccess) => fetch(`${TARGET_URL}${Route.GET_DATA}`)
+const getData = (onSuccess) => fetch(`${TARGET_URL}${Route.GET_DATA}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error();
     }
     return response.json();
   })
-  .then(OnSuccess)
+  .then((data) => {
+    onSuccess(data);
+  })
   .catch(() => {
     showAlert('Не удалось загрузить данные. Попробуйте обновить страницу');
   });
