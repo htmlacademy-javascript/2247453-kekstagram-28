@@ -1,7 +1,7 @@
 const thumbnailsList = document.querySelector('.pictures');
 const thumbnailsTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const getDemoThumbnails = (thumbnails) => {
+const renderThumbnails = (thumbnails) => {
 
   const thumbnailsListFragment = document.createDocumentFragment();
 
@@ -18,4 +18,4 @@ const getDemoThumbnails = (thumbnails) => {
   thumbnailsList.appendChild(thumbnailsListFragment);
 };
 
-export { getDemoThumbnails };
+export { renderThumbnails };
