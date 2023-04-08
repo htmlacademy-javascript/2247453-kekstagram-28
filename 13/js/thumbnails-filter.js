@@ -1,4 +1,4 @@
-import { getDemoThumbnails } from './thumbnails.js';
+import { renderThumbnails } from './thumbnails.js';
 import { debounce } from './util.js';
 
 const RANDOM_PICTURE_COUNT = 10;
@@ -8,9 +8,7 @@ const imgFiltersForm = document.querySelector('.img-filters__form');
 const imgFiltersButtons = imgFiltersForm.querySelectorAll('.img-filters__button');
 const picturesContainer = document.querySelector('.pictures');
 
-function compareCommentsLength(picA, picB) {
-  return picB.comments.length - picA.comments.length;
-}
+const compareCommentsLength = (picA, picB) => picB.comments.length - picA.comments.length;
 
 const clearPictures = () => {
   let pictureElement = picturesContainer.querySelector('.picture');
@@ -62,22 +60,22 @@ const getFiltersClassChange = () => {
 
 const debouncedPhotoRender = debounce((photos) => {
   clearPictures();
-  getDemoThumbnails(photos);
+  renderThumbnails(photos);
 }, RERENDER_DELAY);
 
-const getFiltersRender = (arrCopy) => {
+const getFiltersRender = (photos) => {
 
   imgFiltersForm.addEventListener('click', (evt) => {
     const target = evt.target;
 
     if (target.id === 'filter-default') {
-      debouncedPhotoRender(arrCopy);
+      debouncedPhotoRender(photos);
     }
     if (target.id === 'filter-random') {
-      debouncedPhotoRender(getRandomPhotos(arrCopy));
+      debouncedPhotoRender(getRandomPhotos(photos));
     }
     if (target.id === 'filter-discussed') {
-      debouncedPhotoRender(getSortedPhotos(arrCopy));
+      debouncedPhotoRender(getSortedPhotos(photos));
     }
   });
 };
