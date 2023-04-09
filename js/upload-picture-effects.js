@@ -60,40 +60,42 @@ const sliderSettings = {
   },
 };
 
-effectsList.addEventListener('change', (evt) => {
-  const selectedEffect = evt.target.value;
+const addImgEffects = () => {
+  effectsList.addEventListener('change', (evt) => {
+    const selectedEffect = evt.target.value;
 
-  if (selectedEffect === 'none') {
-    sliderContainer.classList.add('hidden');
-    previewImg.className = '';
-    currentEffectName = '';
-    currentEffectUnit = '';
-    previewImg.style.filter = '';
-  } else {
-    sliderContainer.classList.remove('hidden');
-    previewImg.className = `effects__preview--${selectedEffect}`;
-  }
+    if (selectedEffect === 'none') {
+      sliderContainer.classList.add('hidden');
+      previewImg.className = '';
+      currentEffectName = '';
+      currentEffectUnit = '';
+      previewImg.style.filter = '';
+    } else {
+      sliderContainer.classList.remove('hidden');
+      previewImg.className = `effects__preview--${selectedEffect}`;
+    }
 
-  const currentSettings = sliderSettings[selectedEffect];
-  currentEffectName = currentSettings['name'];
-  currentEffectUnit = currentSettings['unit'];
-  sliderElement.noUiSlider.updateOptions({
-    range: {
-      'min': currentSettings['min'],
-      'max': currentSettings['max']
-    },
-    step: currentSettings['step'],
-    start: currentSettings['start']
+    const currentSettings = sliderSettings[selectedEffect];
+    currentEffectName = currentSettings['name'];
+    currentEffectUnit = currentSettings['unit'];
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        'min': currentSettings['min'],
+        'max': currentSettings['max']
+      },
+      step: currentSettings['step'],
+      start: currentSettings['start']
+    });
+
   });
 
-});
 
-
-// eslint-disable-next-line no-unused-vars
-sliderElement.noUiSlider.on('update', (...rest) => {
-  effectLevel.value = sliderElement.noUiSlider.get();
-  previewImg.style.filter = `${currentEffectName}(${effectLevel.value}${currentEffectUnit})`;
-});
+  // eslint-disable-next-line no-unused-vars
+  sliderElement.noUiSlider.on('update', (...rest) => {
+    effectLevel.value = sliderElement.noUiSlider.get();
+    previewImg.style.filter = `${currentEffectName}(${effectLevel.value}${currentEffectUnit})`;
+  });
+};
 
 const resetEffect = () => {
   previewImg.className = '';
@@ -101,4 +103,4 @@ const resetEffect = () => {
   sliderContainer.classList.add('hidden');
 };
 
-export { resetEffect };
+export { addImgEffects, resetEffect };

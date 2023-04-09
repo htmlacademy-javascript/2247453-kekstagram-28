@@ -6,7 +6,7 @@ import { getFiltersClassChange,getFiltersRender } from './thumbnails-filter.js';
 
 const TARGET_URL = 'https://28.javascript.pages.academy/kekstagram';
 
-const Route = {
+const route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
@@ -25,7 +25,7 @@ const dataOnSuccess = (data) => {
 };
 
 //Функция для получения данных
-const getData = (onSuccess) => fetch(`${TARGET_URL}${Route.GET_DATA}`)
+const getData = (onSuccess) => fetch(`${TARGET_URL}${route.GET_DATA}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error();
@@ -41,7 +41,7 @@ const getData = (onSuccess) => fetch(`${TARGET_URL}${Route.GET_DATA}`)
 
 //Функция для отправки данных
 const sendData = (body) => fetch(
-  `${TARGET_URL}${Route.SEND_DATA}`,
+  `${TARGET_URL}${route.SEND_DATA}`,
   {
     method: 'POST',
     body,
