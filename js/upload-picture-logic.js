@@ -70,4 +70,4 @@ const setUserFormSubmit = () => {
 
 const resetPristineErrors = () => pristine.reset();
 
-export { resetPristineErrors,setUserFormSubmit };
+export { resetPristineErrors, setUserFormSubmit };

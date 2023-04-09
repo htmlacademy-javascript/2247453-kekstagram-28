@@ -80,4 +80,4 @@ const getFiltersRender = (photos) => {
   });
 };
 
-export { getFiltersClassChange,getFiltersRender };
+export { getFiltersClassChange, getFiltersRender };

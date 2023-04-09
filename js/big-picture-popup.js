@@ -61,4 +61,4 @@ function addClosePictureHandler () {
   });
 }
 
-export { addOpenPictureHandler,addClosePictureHandler };
+export { addOpenPictureHandler, addClosePictureHandler };

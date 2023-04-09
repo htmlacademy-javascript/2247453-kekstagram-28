@@ -69,4 +69,4 @@ function debounce (callback, timeoutDelay) {
   };
 }
 
-export { getRandomInteger,createRandomIdFromRangeGenerator,getRandomArrayElement,isEscapeKey,isEnterKey,hasDuplicates,showAlert,debounce };
+export { getRandomInteger, createRandomIdFromRangeGenerator, getRandomArrayElement, isEscapeKey, isEnterKey, hasDuplicates, showAlert, debounce };
