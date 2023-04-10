@@ -11,12 +11,11 @@ const picturesContainer = document.querySelector('.pictures');
 const compareCommentsLength = (picA, picB) => picB.comments.length - picA.comments.length;
 
 const clearPictures = () => {
-  let pictureElement = picturesContainer.querySelector('.picture');
+  const pictureElements = picturesContainer.querySelectorAll('.picture');
 
-  while (pictureElement) {
+  pictureElements.forEach((pictureElement) => {
     picturesContainer.removeChild(pictureElement);
-    pictureElement = picturesContainer.querySelector('.picture');
-  }
+  });
 };
 
 const getRandomPhotos = (photos) => {
