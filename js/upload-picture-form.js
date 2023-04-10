@@ -109,7 +109,9 @@ const showMessage = (type) => {
     closeButton.removeEventListener('click', onCloseButtonClick);
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('click', onOutsideClick);
-    document.addEventListener('keydown', onPopupEscKeydown);
+    if (!pictureEditor.classList.contains('hidden')) {
+      document.addEventListener('keydown', onPopupEscKeydown);
+    }
   }
 
   document.body.appendChild(message);

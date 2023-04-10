@@ -16,7 +16,7 @@ const messageType = {
   ERR: 'error',
 };
 
-const dataOnSuccess = (data) => {
+const getDataOnSuccess = (data) => {
   renderThumbnails(data);
   addOpenPictureHandler(data);
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
@@ -58,4 +58,4 @@ const sendData = (body) => fetch(
     showMessage(messageType.ERR);
   });
 
-export { getData, sendData, dataOnSuccess };
+export { getData, sendData, getDataOnSuccess };

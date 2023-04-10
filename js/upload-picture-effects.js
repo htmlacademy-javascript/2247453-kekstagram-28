@@ -4,20 +4,15 @@ const effectsList = document.querySelector('.effects__list');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const effectLevel = document.querySelector('.effect-level__value');
 
-let currentEffectName = '';
-let currentEffectUnit = '';
-
-noUiSlider.create(sliderElement, {
-  range: {
-    'min': 0,
-    'max': 1
-  },
-  step: 0.1,
-  start: 1,
-  connect: 'lower'
-});
-
 const sliderSettings = {
+  default: {
+    name: '',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    start: 1
+  },
   chrome: {
     name: 'grayscale',
     unit: '',
@@ -59,6 +54,19 @@ const sliderSettings = {
     start: 3
   },
 };
+
+let currentEffectName = '';
+let currentEffectUnit = '';
+
+noUiSlider.create(sliderElement, {
+  range: {
+    'min': sliderSettings.default['min'],
+    'max': sliderSettings.default['max']
+  },
+  step: sliderSettings.default['step'],
+  start: sliderSettings.default['start'],
+  connect: 'lower'
+});
 
 const addImgEffects = () => {
   effectsList.addEventListener('change', (evt) => {
